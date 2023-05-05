@@ -1,6 +1,6 @@
 # tictactoe
 -[x] Create repo
--[ ] Create files
+-[x] Create files
 -[ ] Build the following:
     - [ ] gameBoard (Module)
     - [ ] displayController (Module)
