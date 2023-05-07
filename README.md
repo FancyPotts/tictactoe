@@ -9,7 +9,7 @@ This is a deep dive into encapsulation, privatizing objects, and exploring the d
         - [x] Use nested event listeners
     - [x] displayController (Module)
         - [x] Determine player turn.
-    - [ ] players (factory)
+    - [x] players (factory)
         - [ ] function for player action
 - [x] Display gameBoard
 - [x] Build-in player function marking grid using the nested event listeners of the gameBoard

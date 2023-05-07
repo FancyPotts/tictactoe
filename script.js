@@ -1,8 +1,8 @@
-
 const TicTacToeBoard = (function () {
   function create(boardSize, callback) {
     const board = Array.from({length: boardSize}, () => new Array(boardSize).fill(null));
-    const boardElem = document.querySelector('.board')
+    const boardElem = document.createElement('div')
+    boardElem.classList.add('board')
     for (let i = 0; i < boardSize; i++) {
       for (let j = 0; j < boardSize; j++) {
         const cell = document.createElement('div')
@@ -11,13 +11,14 @@ const TicTacToeBoard = (function () {
           callback(i, j);
           GameFlowController.turn()
           if (turnCheck === true) {
-            cell.innerHTML = 'close'
+            cell.innerHTML = player2.shape
           } else if (turnCheck === false) {
-            cell.innerHTML = 'circle'
+            cell.innerHTML = player1.shape
           }
         })
         boardElem.appendChild(cell)
         board[i][j] = cell
+        document.body.appendChild(boardElem)
       }
     }
     return board
@@ -29,8 +30,8 @@ const TicTacToeBoard = (function () {
 
 const GameFlowController = (function () {
   let isPlayer1Turn = true
-  const displayTurn = document.getElementById('turn-display')
-
+  const turnDisplay = document.createElement('div')
+  turnDisplay.setAttribute('id', 'turn-display')
   function turn () {
     isPlayer1Turn = isPlayer1Turn ? false : true;
     turnCheck = isPlayer1Turn
@@ -39,12 +40,15 @@ const GameFlowController = (function () {
   }
   function display () {
     if (isPlayer1Turn === true) {
-      displayTurn.innerHTML = 'Player 1'
+      turnDisplay.innerHTML = player1.name
     } else {
-      displayTurn.innerHTML = 'Player 2'
+      turnDisplay.innerHTML = player2.name
     }
   }
-  return { turn }
+  document.body.appendChild(turnDisplay)
+  return {
+    turn
+  }
 })()
 
 const board = TicTacToeBoard.create(3,(row, col) => {
@@ -52,6 +56,9 @@ const board = TicTacToeBoard.create(3,(row, col) => {
   console.log(board)
 })
 
-// const playerFactory = (name, shape) => {
-//   return { name, shape };
-// }
+const playerFactory = (name, shape) => {
+  return { name, shape }
+}
+
+const player1 = playerFactory('Player 1', 'circle')
+const player2 = playerFactory('Player 2', 'close')
