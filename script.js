@@ -9,11 +9,15 @@ const TicTacToeBoard = (function () {
         cell.classList.add('cell', 'material-symbols-outlined', 'md-lg')
         cell.addEventListener('click', () => {
           callback(i, j);
-          GameFlowController.turn()
-          if (turnCheck === true) {
-            cell.innerHTML = player2.shape
-          } else if (turnCheck === false) {
-            cell.innerHTML = player1.shape
+          if (cell.innerHTML === '') {
+            GameFlowController.turn()
+            if (turnCheck === true) {
+              cell.innerHTML = player2.shape
+            } else if (turnCheck === false) {
+              cell.innerHTML = player1.shape
+            }
+          } else {
+            return
           }
         })
         boardElem.appendChild(cell)
@@ -62,3 +66,5 @@ const playerFactory = (name, shape) => {
 
 const player1 = playerFactory('Player 1', 'circle')
 const player2 = playerFactory('Player 2', 'close')
+
+// Check if square is null, act.
