@@ -1,6 +1,13 @@
+window.addEventListener('load', function() {
+  const link = document.createElement('link')
+  link.rel = 'stylesheet'
+  link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
+  document.head.appendChild(link)
+})
+
 const TicTacToeBoard = (function () {
   function create(boardSize, callback) {
-    const board = Array.from({length: boardSize}, () => new Array(boardSize).fill(null));
+    const board = Array.from({length: boardSize}, () => new Array(boardSize).fill(null))
     const boardElem = document.createElement('div')
     boardElem.classList.add('board')
     for (let i = 0; i < boardSize; i++) {
@@ -36,8 +43,9 @@ const GameFlowController = (function () {
   let isPlayer1Turn = true
   const turnDisplay = document.createElement('div')
   turnDisplay.setAttribute('id', 'turn-display')
+  turnDisplay.innerHTML = 'Player 1 first!'
   function turn () {
-    isPlayer1Turn = isPlayer1Turn ? false : true;
+    isPlayer1Turn = isPlayer1Turn ? false : true
     turnCheck = isPlayer1Turn
     display()
     return turnCheck
@@ -56,15 +64,15 @@ const GameFlowController = (function () {
 })()
 
 const board = TicTacToeBoard.create(3,(row, col) => {
-  console.log(`Cell clicked! Row ${row} on Col ${col}`)
-  console.log(board)
+  // console.log(`Cell clicked! Row ${row} on Col ${col}`)
+  // console.log(board)
 })
 
 const playerFactory = (name, shape) => {
   return { name, shape }
 }
 
-const player1 = playerFactory('Player 1', 'circle')
-const player2 = playerFactory('Player 2', 'close')
+const player1 = playerFactory('Player 1', 'close')
+const player2 = playerFactory('Player 2', 'circle')
 
-// Check if square is null, act.
+// bolt, star, token, heart_broken, favorite. fonts.google.com/icons for more options
