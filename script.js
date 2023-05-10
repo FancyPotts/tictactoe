@@ -1,4 +1,5 @@
-window.addEventListener('load', function() {
+// This is to make sure the shapes for tic tac toe is loaded before onclick events. The normal way would have shown normal text before changing briefly. IE "circle" before showing the icon.
+window.addEventListener('load', function () {
   const link = document.createElement('link')
   link.rel = 'stylesheet'
   link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
@@ -6,8 +7,8 @@ window.addEventListener('load', function() {
 })
 
 const TicTacToeBoard = (function () {
-  function create(boardSize, callback) {
-    const board = Array.from({length: boardSize}, () => new Array(boardSize).fill(null))
+  function create (boardSize, callback) {
+    const board = Array.from({ length: boardSize }, () => new Array(boardSize).fill(null))
     const boardElem = document.createElement('div')
     boardElem.classList.add('board')
     for (let i = 0; i < boardSize; i++) {
@@ -16,15 +17,17 @@ const TicTacToeBoard = (function () {
         cell.classList.add('cell', 'material-symbols-outlined', 'md-lg')
         cell.addEventListener('click', () => {
           callback(i, j);
-          if (cell.innerHTML === '') {
-            GameFlowController.turn()
-            if (turnCheck === true) {
-              cell.innerHTML = player2.shape
-            } else if (turnCheck === false) {
-              cell.innerHTML = player1.shape
-            }
-          } else {
+          if (cell.textContent !== '') {
             return
+          }
+          GameFlowController.turn()
+          switch (turnCheck) {
+            case true:
+              cell.textContent = player2.shape
+              break
+            case false:
+              cell.textContent = player1.shape
+              break
           }
         })
         boardElem.appendChild(cell)
@@ -45,7 +48,7 @@ const GameFlowController = (function () {
   turnDisplay.setAttribute('id', 'turn-display')
   turnDisplay.innerHTML = 'Player 1 first!'
   function turn () {
-    isPlayer1Turn = isPlayer1Turn ? false : true
+    isPlayer1Turn = !isPlayer1Turn
     turnCheck = isPlayer1Turn
     display()
     return turnCheck
@@ -55,6 +58,17 @@ const GameFlowController = (function () {
       turnDisplay.innerHTML = player1.name
     } else {
       turnDisplay.innerHTML = player2.name
+    }
+  }
+  function winnerCheck () {
+    
+    for (i = 0; i < boardSize; i++) {
+      const firstCellValue = board[i][0].textContent
+      if (firstCellValue === '') continue
+      let rowComplete = true
+      for (let j = 0; j < boardSize; j++) {
+        if 
+      }
     }
   }
   document.body.appendChild(turnDisplay)
@@ -75,4 +89,23 @@ const playerFactory = (name, shape) => {
 const player1 = playerFactory('Player 1', 'close')
 const player2 = playerFactory('Player 2', 'circle')
 
-// bolt, star, token, heart_broken, favorite. fonts.google.com/icons for more options
+// other shape options: bolt, star, token, heart_broken, favorite. fonts.google.com/icons for more.
+
+const WinnerCheck = (function () {
+  const boardSize = board.length
+  for (let i = 0; i < boardSize; i++) {
+    const firstCellValue = board[i][0].textContent
+    if (firstCellValue === '') continue
+    if (board[i].every((cell) => cell.textContent === firstCellValue)) {
+      return firstCellValue
+    }
+  }
+  for (let j = 0; j < boardsize; j++) {
+    const firstCellValue = board[0][j].textContent
+    if (firstCellValue === '') continue
+    if (board.every((row) => row[j].textContent === firstCellValue)) {
+      return firstCellValue
+    }
+  }
+  
+})

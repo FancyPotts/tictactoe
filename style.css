@@ -3,9 +3,9 @@
    .board {
       display: flex;
       flex-wrap: wrap;
-      width: 308px;
-      height: 308px;
-      gap: 4px;
+      width: 310px;
+      height: 310px;
+      gap: 5px;
       background-color: black;
     }
 
@@ -15,7 +15,7 @@
       height: 100px;
       text-align: center;
       cursor: pointer;
-      padding-top: 8px;
+      padding-top: 10px;
       background-color: white;
     }
 
