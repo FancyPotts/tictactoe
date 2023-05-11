@@ -24,9 +24,11 @@ const TicTacToeBoard = (function () {
           switch (turnCheck) {
             case true:
               cell.textContent = player2.shape
+              GameFlowController.checkWinner(board)
               break
             case false:
               cell.textContent = player1.shape
+              GameFlowController.checkWinner(board)
               break
           }
         })
@@ -60,20 +62,43 @@ const GameFlowController = (function () {
       turnDisplay.innerHTML = player2.name
     }
   }
-  function winnerCheck () {
-    
-    for (i = 0; i < boardSize; i++) {
+  function checkWinner (board) {
+    const boardSize = board.length
+    for (let i = 0; i < boardSize; i++) {
       const firstCellValue = board[i][0].textContent
       if (firstCellValue === '') continue
-      let rowComplete = true
-      for (let j = 0; j < boardSize; j++) {
-        if 
+      if (board[i].every((cell) => cell.textContent === firstCellValue)) {
+        return firstCellValue
       }
     }
+    for (let j = 0; j < boardSize; j++) {
+      const firstCellValue = board[0][j].textContent
+      if (firstCellValue === '') continue
+      if (board.every((row) => row[j].textContent === firstCellValue)) {
+        return firstCellValue
+      }
+    }
+    const firstDiagonalCellValue = board[0][0].textContent
+    if (firstDiagonalCellValue !== '') {
+      if (board.every((row, index) => row[index].textContent === firstDiagonalCellValue)) {
+        return firstDiagonalCellValue
+      }
+    }
+    const lastDiagonalCellValue = board[0][boardSize - 1].textContent
+    if (lastDiagonalCellValue !== '') {
+      if (board.every((row, index) => row[boardSize - index - 1].textContent === lastDiagonalCellValue)) {
+        return lastDiagonalCellValue
+      }
+    }
+    return null
   }
+
+  // create if block with switch if a winner is returned, checking against the players.
+
   document.body.appendChild(turnDisplay)
   return {
-    turn
+    turn,
+    checkWinner
   }
 })()
 
@@ -90,22 +115,3 @@ const player1 = playerFactory('Player 1', 'close')
 const player2 = playerFactory('Player 2', 'circle')
 
 // other shape options: bolt, star, token, heart_broken, favorite. fonts.google.com/icons for more.
-
-const WinnerCheck = (function () {
-  const boardSize = board.length
-  for (let i = 0; i < boardSize; i++) {
-    const firstCellValue = board[i][0].textContent
-    if (firstCellValue === '') continue
-    if (board[i].every((cell) => cell.textContent === firstCellValue)) {
-      return firstCellValue
-    }
-  }
-  for (let j = 0; j < boardsize; j++) {
-    const firstCellValue = board[0][j].textContent
-    if (firstCellValue === '') continue
-    if (board.every((row) => row[j].textContent === firstCellValue)) {
-      return firstCellValue
-    }
-  }
-  
-})
