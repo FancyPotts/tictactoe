@@ -24,13 +24,13 @@ const TicTacToeBoard = (function () {
           switch (turnCheck) {
             case true:
               cell.textContent = player2.shape
-              GameFlowController.checkWinner(board)
               break
             case false:
               cell.textContent = player1.shape
-              GameFlowController.checkWinner(board)
               break
           }
+          winner = GameFlowController.checkWinner(board)
+          console.log(winner)
         })
         boardElem.appendChild(cell)
         board[i][j] = cell
@@ -93,8 +93,6 @@ const GameFlowController = (function () {
     return null
   }
 
-  // create if block with switch if a winner is returned, checking against the players.
-
   document.body.appendChild(turnDisplay)
   return {
     turn,
@@ -111,7 +109,7 @@ const playerFactory = (name, shape) => {
   return { name, shape }
 }
 
-const player1 = playerFactory('Player 1', 'close')
-const player2 = playerFactory('Player 2', 'circle')
+const player1 = playerFactory('Player 1', 'circle')
+const player2 = playerFactory('Player 2', 'token')
 
 // other shape options: bolt, star, token, heart_broken, favorite. fonts.google.com/icons for more.
