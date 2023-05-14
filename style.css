@@ -24,18 +24,12 @@
       background: 0;
       cursor: pointer;
       transform: rotate(0.10turn);
-      transition: transform 400ms ease-out;
+      transition: transform 400ms;
     }
 
     #reset:hover {
       transform: rotate(-0.15turn)
     }
-
-    #reset:active {
-      transform: rotate(-.85turn)
-    }
-
-
    
    .board {
       display: flex;

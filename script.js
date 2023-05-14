@@ -60,8 +60,14 @@ const GameFlowController = (function () {
     if (winnerShape !== null) {
       if (winnerShape === player1.shape) {
         turnDisplay.innerHTML = 'Player 1 wins!'
+        setTimeout(() => {
+          turnDisplay.innerHTML += ' Try again?'
+        }, 1500)
       } else {
         turnDisplay.innerHTML = 'Player 2 wins!'
+        setTimeout(() => {
+          turnDisplay.innerHTML += ' Try again?'
+        }, 1500)
       }
     }
   }
