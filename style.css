@@ -10,13 +10,32 @@
 
     fieldset {
       display: inline-block;
-      padding: 20px;
       border-radius: 5px;
+      position: relative;
+      border: 2px solid;
     }
 
-    #turn-display {
-      padding: 10px;
+    #reset {
+      position: absolute;
+      bottom: 10px;
+      right: 5px;
+      font-size: 30px !important;
+      border: 0;
+      background: 0;
+      cursor: pointer;
+      transform: rotate(0.10turn);
+      transition: transform 400ms ease-out;
     }
+
+    #reset:hover {
+      transform: rotate(-0.15turn)
+    }
+
+    #reset:active {
+      transform: rotate(-.85turn)
+    }
+
+
    
    .board {
       display: flex;
@@ -25,6 +44,7 @@
       height: 310px;
       gap: 5px;
       background-color: black;
+      margin: 20px;
     }
 
     .cell {

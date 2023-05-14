@@ -24,7 +24,8 @@ const TicTacToeBoard = (function () {
     }
     const field = document.querySelector('fieldset')
     const innerField = document.createElement('div')
-    field.appendChild(innerField)
+    const displayBox = document.getElementById('turn-display')
+    field.insertBefore(innerField, displayBox)
     innerField.appendChild(boardElem)
     return board
   }
@@ -39,7 +40,7 @@ const GameFlowController = (function () {
   const turnDisplay = document.createElement('div')
   const boxInBox = document.querySelector('fieldset')
   turnDisplay.setAttribute('id', 'turn-display')
-  turnDisplay.textContent = 'Player 1 first!'
+  turnDisplay.textContent = 'Player 1 goes first!'
   boxInBox.appendChild(turnDisplay)
   function turn (row, col, cell) {
     isPlayer1Turn = !isPlayer1Turn
@@ -102,6 +103,22 @@ const GameFlowController = (function () {
     }
     return null
   }
+  function resetBoard () {
+    for (let row of board) {
+      for (let cell of row) {
+        cell.textContent = ''
+      }
+    }
+    isPlayer1Turn = true
+    winnerShape = null
+
+    turnDisplay.textContent = 'Board reset!'
+    setTimeout(() => {
+      turnDisplay.textContent = 'Player 1 goes first!'
+    }, 1000)
+  }
+  const resetButton = document.getElementById('reset')
+  resetButton.addEventListener('click', resetBoard)
   return {
     turn,
     checkWinner
