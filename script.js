@@ -22,7 +22,10 @@ const TicTacToeBoard = (function () {
         board[i][j] = cell
       }
     }
-    document.body.appendChild(boardElem)
+    const field = document.querySelector('fieldset')
+    const innerField = document.createElement('div')
+    field.appendChild(innerField)
+    innerField.appendChild(boardElem)
     return board
   }
   return {
@@ -34,16 +37,17 @@ const GameFlowController = (function () {
   let isPlayer1Turn = true
   let winnerShape = null
   const turnDisplay = document.createElement('div')
+  const boxInBox = document.querySelector('fieldset')
   turnDisplay.setAttribute('id', 'turn-display')
-  turnDisplay.innerHTML = 'Player 1 first!'
+  turnDisplay.textContent = 'Player 1 first!'
+  boxInBox.appendChild(turnDisplay)
   function turn (row, col, cell) {
     isPlayer1Turn = !isPlayer1Turn
-    turnCheck = isPlayer1Turn
     display()
     if (cell.textContent !== '') {
       return
     }
-    switch (turnCheck) {
+    switch (isPlayer1Turn) {
       case true:
         cell.textContent = player2.shape
         break
@@ -54,12 +58,11 @@ const GameFlowController = (function () {
     winnerShape = GameFlowController.checkWinner(board)
     if (winnerShape !== null) {
       if (winnerShape === player1.shape) {
-        turnDisplay.innerHTML = "Player 1 wins!"
+        turnDisplay.innerHTML = 'Player 1 wins!'
       } else {
-        turnDisplay.innerHTML = "Player 2 wins!"
+        turnDisplay.innerHTML = 'Player 2 wins!'
       }
     }
-    console.log(winner)
   }
 
   function display () {
@@ -99,15 +102,13 @@ const GameFlowController = (function () {
     }
     return null
   }
-
-  document.body.appendChild(turnDisplay)
   return {
     turn,
     checkWinner
   }
 })()
 
-const board = TicTacToeBoard.create(3,(row, col, cell) => {
+const board = TicTacToeBoard.create(3, (row, col, cell) => {
   GameFlowController.turn(row, col, cell)
   // console.log(`Cell clicked! Row ${row} on Col ${col}`)
   // console.log(board)
