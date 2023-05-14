@@ -32,6 +32,7 @@ const TicTacToeBoard = (function () {
 
 const GameFlowController = (function () {
   let isPlayer1Turn = true
+  let winnerShape = null
   const turnDisplay = document.createElement('div')
   turnDisplay.setAttribute('id', 'turn-display')
   turnDisplay.innerHTML = 'Player 1 first!'
@@ -50,7 +51,14 @@ const GameFlowController = (function () {
         cell.textContent = player1.shape
         break
     }
-    winner = GameFlowController.checkWinner(board)
+    winnerShape = GameFlowController.checkWinner(board)
+    if (winnerShape !== null) {
+      if (winnerShape === player1.shape) {
+        turnDisplay.innerHTML = "Player 1 wins!"
+      } else {
+        turnDisplay.innerHTML = "Player 2 wins!"
+      }
+    }
     console.log(winner)
   }
 
@@ -110,6 +118,6 @@ const playerFactory = (name, shape) => {
 }
 
 const player1 = playerFactory('Player 1', 'circle')
-const player2 = playerFactory('Player 2', 'token')
+const player2 = playerFactory('Player 2', 'close')
 
 // other shape options: bolt, star, token, heart_broken, favorite. fonts.google.com/icons for more.
