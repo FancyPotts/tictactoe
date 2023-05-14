@@ -16,27 +16,13 @@ const TicTacToeBoard = (function () {
         const cell = document.createElement('div')
         cell.classList.add('cell', 'material-symbols-outlined', 'md-lg')
         cell.addEventListener('click', () => {
-          callback(i, j);
-          if (cell.textContent !== '') {
-            return
-          }
-          GameFlowController.turn()
-          switch (turnCheck) {
-            case true:
-              cell.textContent = player2.shape
-              break
-            case false:
-              cell.textContent = player1.shape
-              break
-          }
-          winner = GameFlowController.checkWinner(board)
-          console.log(winner)
+          callback(i, j, cell)
         })
         boardElem.appendChild(cell)
         board[i][j] = cell
-        document.body.appendChild(boardElem)
       }
     }
+    document.body.appendChild(boardElem)
     return board
   }
   return {
@@ -49,12 +35,25 @@ const GameFlowController = (function () {
   const turnDisplay = document.createElement('div')
   turnDisplay.setAttribute('id', 'turn-display')
   turnDisplay.innerHTML = 'Player 1 first!'
-  function turn () {
+  function turn (row, col, cell) {
     isPlayer1Turn = !isPlayer1Turn
     turnCheck = isPlayer1Turn
     display()
-    return turnCheck
+    if (cell.textContent !== '') {
+      return
+    }
+    switch (turnCheck) {
+      case true:
+        cell.textContent = player2.shape
+        break
+      case false:
+        cell.textContent = player1.shape
+        break
+    }
+    winner = GameFlowController.checkWinner(board)
+    console.log(winner)
   }
+
   function display () {
     if (isPlayer1Turn === true) {
       turnDisplay.innerHTML = player1.name
@@ -100,7 +99,8 @@ const GameFlowController = (function () {
   }
 })()
 
-const board = TicTacToeBoard.create(3,(row, col) => {
+const board = TicTacToeBoard.create(3,(row, col, cell) => {
+  GameFlowController.turn(row, col, cell)
   // console.log(`Cell clicked! Row ${row} on Col ${col}`)
   // console.log(board)
 })
