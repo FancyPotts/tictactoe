@@ -1,9 +1,9 @@
 # tictactoe
 This is a deep dive into encapsulation, privatizing objects, and exploring the different ways of how functions can interact with each other. Use JS to build the game application and make it easy to modify
 
--[x] Create repo
--[x] Create files
--[ ] Build the following:
+- [x] Create repo
+- [x] Create files
+- [ ] Build the following:
     - [x] gameBoard (Module)
         - [x] Generate board
         - [x] Use nested event listeners
